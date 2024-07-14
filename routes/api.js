@@ -8,6 +8,15 @@
 
 'use strict';
 
+const mongoose = require('mongoose')
+
+mongoose.connect(process.env.MONGO_URI);
+
+const bookSchema = new mongoose.Schema({
+  title: {type: String, required: true}
+})
+const Book = mongoose.model('Book', bookSchema)
+
 module.exports = function (app) {
 
   app.route('/api/books')
@@ -16,9 +25,13 @@ module.exports = function (app) {
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
     })
     
-    .post(function (req, res){
+    .post(async function (req, res){
       let title = req.body.title;
       //response will contain new book object including atleast _id and title
+
+      const book = new Book({ title})
+      await book.save()
+      return res.send(book)
     })
     
     .delete(function(req, res){
