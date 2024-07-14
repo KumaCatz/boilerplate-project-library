@@ -20,9 +20,12 @@ const Book = mongoose.model('Book', bookSchema)
 module.exports = function (app) {
 
   app.route('/api/books')
-    .get(function (req, res){
+    .get(async function (req, res){
       //response will be array of book objects
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
+
+      const books = await Book.find({})
+      return res.json(books)
     })
     
     .post(async function (req, res){
@@ -31,7 +34,7 @@ module.exports = function (app) {
 
       const book = new Book({ title})
       await book.save()
-      return res.send(book)
+      return res.json(book)
     })
     
     .delete(function(req, res){
