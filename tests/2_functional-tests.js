@@ -41,11 +41,27 @@ suite('Functional Tests', function() {
     suite('POST /api/books with title => create book object/expect book object', function() {
       
       test('Test POST /api/books with title', function(done) {
-        //done();
+        chai
+          .request(server)
+          .post('/api/books')
+          .send({title: 'bookTitle1'})
+          .end((err, res) => {
+            assert.equal(res.status, 200)
+            assert.deepEqual(res.body, {title: 'bookTitle1', _id: res.body._id})
+            done()
+          })
       });
       
       test('Test POST /api/books with no title given', function(done) {
-        //done();
+        chai
+          .request(server)
+          .post('/api/books')
+          .send({title: ''})
+          .end((err, res) => {
+            assert.equal(res.status, 200)
+            assert.equal(res.text, 'missing required field title')
+            done();
+          })
       });
       
     });
@@ -54,7 +70,14 @@ suite('Functional Tests', function() {
     suite('GET /api/books => array of books', function(){
       
       test('Test GET /api/books',  function(done){
-        //done();
+        chai
+          .request(server)
+          .get('/api/books')
+          .end((err, res) => {
+            assert.equal(res.status, 200)
+            assert.isArray(res.body)
+            done();
+          })
       });      
       
     });

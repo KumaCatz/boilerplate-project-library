@@ -5,7 +5,7 @@
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js",
-		"watch": "node --watch server.js"
+		"dev": "nodemon server.js"
 	},
 	"dependencies": {
 		"body-parser": "^1.15.2",
@@ -16,6 +16,7 @@
 		"express": "^4.14.0",
 		"mocha": "^3.2.0",
 		"mongoose": "^8.5.1",
+		"nodemon": "^3.1.4",
 		"zombie": "^5.0.5"
 	},
 	"repository": {
