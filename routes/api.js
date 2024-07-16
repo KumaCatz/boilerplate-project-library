@@ -77,7 +77,7 @@ module.exports = function (app) {
           comments: bookById.comments,
         });
       } catch (err) {
-        return res.json({ error: 'could not get book id' });
+        return res.send('no book exists');
       }
     })
 
@@ -104,7 +104,7 @@ module.exports = function (app) {
           comments: bookById.comments,
         });
       } catch (err) {
-        return res.json({ error: 'could not post comment' });
+        return res.send('no book exists');
       }
     })
 
