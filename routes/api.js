@@ -113,7 +113,10 @@ module.exports = function (app) {
       //if successful response will be 'delete successful'
 
       try {
-        await Book.findByIdAndDelete(bookid);
+        const deletedBook = await Book.findByIdAndDelete(bookid);
+        if(!deletedBook) {
+          return res.send('no book exists');
+        }
         return res.send('delete successful');
       } catch (err) {
         return res.send('no book exists');
